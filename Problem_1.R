@@ -33,17 +33,17 @@ F_inv = function(mu, b, y){
   return(mu - b * sign(y - 0.5) * log(1 - 2 * abs(y - 0.5)))
 }
 
-# L inverse
+# L
 # Sum the squares of an array of inputs and divide by the length
-L_inv = function(ys){
+L_calc = function(ys){
   n = length(ys)
   return(1/n * sum(ys^2))
 }
 
 
-# K inverse
+# K
 # Sum an array of inputs and divide by the length
-K_inv = function(ys){
+K_calc = function(ys){
   n = length(ys)
   return(1/n * sum(ys))
 } 
@@ -55,8 +55,8 @@ for (j in 1:max_sample_size){
   # Loop through data sets
   for (i in 1:N){
     random = runif(n[j])
-    K_Matrix[i, j] = K_inv(F_inv(mu, b, random))
-    L_Matrix[i, j] = L_inv(F_inv(mu, b, random))
+    K_Matrix[i, j] = K_calc(F_inv(mu, b, random))
+    L_Matrix[i, j] = L_calc(F_inv(mu, b, random))
   }
 }
 
@@ -69,11 +69,4 @@ for (i in 2:50){
   points(n, K_Matrix[i,], col = i)
   
 }
-
-plot(n, K_Matrix[1,], main="n vs K", 
-     xlab="n ", ylab="K_n", add = TRUE)
-
-points(n, K_Matrix[25,], col = 2)
-
-points(n, K_Matrix[50,], col = 3)
 
