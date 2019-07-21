@@ -3,17 +3,12 @@
 % Margins
 \usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
-% SI Units
-\usepackage{siunitx}
-
-%  BibTek
-\usepackage{cite}
-
-% For prettier tables
-\usepackage{array}
-
 % Text over arrows
 \usepackage{mathtools}
+
+% Graphics and subcaptions
+\usepackage{graphicx}
+\usepackage{float}
 
 % For code
 \usepackage{courier}
@@ -33,19 +28,14 @@
 	linkcolor=black,  %choose some color if you want links to stand out
 }
 
-
 % Change Font
 \usepackage[sfdefault]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
 \usepackage[T1]{fontenc}
 
-% For slashthroughs
-\usepackage{cancel}
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
-
-\pagenumbering{arabic}
 
 % For double spacing
 \usepackage{setspace}
@@ -63,6 +53,9 @@
 
 % Add \tab command
 \newcommand\tab[1][1cm]{\hspace*{#1}}
+
+% Add \mean bar command
+\newcommand*\mean[1]{\bar{#1}}
 
 %opening
 \title{ST 501 R Project}
@@ -82,13 +75,97 @@
 \subsection{1.}
 Consider the "double exponential" or Laplace Distribution. A RV $Y \sim Laplace(\mu, b)$ has the PDF given by
 
-$$f_Y(y) = \frac{1}{2b}e^{-\Big(  \frac{|y-\mu}{b}   \Big) } $$
+$$f_Y(y) = \frac{1}{2b}e^{-\Big(  \frac{|y-\mu |}{b}   \Big) } $$
 
 for $-\infty < y < \infty$, $-\infty < \mu < \infty$, and $b>0.$
 
-We will consider having a random sample of Laplave RVs with $\mu = 0$ and $b = 5$. We'll look at the limiting behavior of $L=\frac{1}{n}\sum_{i=1}^{n}Y_i^2$ using simulation.
+We will consider having a random sample of Laplace RVs with $\mu = 0$ and $b = 5$. We'll look at the limiting behavior of $L=\frac{1}{n}\sum_{i=1}^{n}Y_i^2$ using simulation.
 
 \subsubsection{a.}
+Give a derivation of what $L$ converges to in probability. You should show any moment calculations and state the theorem(s) you use.
 
+\bigskip
+
+
+By the Weak Law of Large Numbers, we know that,
+
+$$L = \frac{1}{n}\sum_{i=1}^{n}Y_i^2 \xrightarrow{\text{p}} E(Y^2).$$
+
+We can calculate  $E(Y^2)$ using the definition of an expected value.
+
+\begin{align*}
+	 E(Y^2) & = \int_{-\infty}^{\infty} y^2 \cdot \frac{1}{2b} \cdot e^{-\Big(  \frac{|y-\mu |}{b} \Big)} dy\\
+	 & =  \int_{-\infty}^{\infty} (x + \mu)^2 \cdot \frac{1}{2b} \cdot e^{-  \frac{|x|}{b}} dx & \text{taking } x = y - \mu\\
+	 & = \frac{ 1 }{2b } \int_{-\infty}^{\infty} (x^2 + 2 \mu x  + \mu^2) \cdot e^{-  \frac{|x|}{b}}dx\\
+	 & = \frac{ 1 }{2b } \Big[ \int_{-\infty}^{\infty} x^2 \cdot e^{-  \frac{|x|}{b}}dx+ \int_{-\infty}^{\infty} 2\mu x \cdot e^{-  \frac{|x|}{b}}dx+ \int_{-\infty}^{\infty} \mu^2 e^{-  \frac{|x|}{b}}dx \Big]\\
+	 & = \frac{ 1 }{ 2b }[4b^3 + 0 + 2b\mu^2]\\
+	 & = \frac{ 4b^3 }{ 2b } + \frac{ 2b\mu^2 }{ 2b }\\
+	 & = 2b^2 + \mu
+\end{align*}
+
+We can confirm this by checking $ E(Y)^2 = Var(Y) + E(Y)^2$. From Wikipedia, we can see that $E(Y) = \mu$ and $Var(Y) = 2b^2$.
+
+$$Var(Y) + E(Y)^2 = 2b^2 + (\mu)^2 = 2b^2 + \mu^2 = E(Y)^2$$
+
+\subsubsection{b.}
+Explain what $K = \sqrt{L}$ converges to and why.
+
+\bigskip
+
+By the Continuity Theorem, we can see that $K = \sqrt{L}  \xrightarrow{\text{p}}  \sqrt{2b^2 +\mu^2}$.
+
+\subsubsection{c.}
+Derive the CDF of $Y$ . Note you’ll have two cases and you should show your work.
+
+\bigskip
+Our CDF looks like
+$$F_Y(y) = \int_{-\infty}^{y}\frac{1}{2b}e^{-\Big(  \frac{|x-\mu |}{b}   \Big) }  dx$$
+
+Using the absolute value, we can split the density function into two pieces, $y< \mu$ and $y\geq \mu$. Let us examine the first case.
+
+\begin{align*}
+F_Y(y) & = \int_{\infty}^{y} \frac{1}{2b}e^{-\frac{\mu-x}{b} } dx & \text{for } y <\mu\\
+	& =  \int_{\infty}^{y} \frac{1}{2b}e^{\frac{x-\mu}{b} } dx \\
+	& = \frac{1}{2} e^{\frac{y-\mu }{b}}
+\end{align*}
+
+Next we can examine the $y\geq \mu$ case.
+
+\begin{align*}
+F_Y(y) & = \int_{\infty}^{y} \frac{1}{2b}e^{-\frac{x - \mu}{b} } dx & \text{for } y \geq\mu\\
+& =  \int_{\infty}^{\mu} \frac{1}{2b}e^{\frac{\mu - x}{b} } dx + \int_{\mu}^{y} \frac{1}{2b}e^{\frac{\mu - x}{b} } dx  \\
+& = \frac{ 1}{ 2 } + \Big(\frac{ 1}{ 2 } - \frac{ 1 }{ 2 } e^{\frac{ \mu - y }{ b }}\Big) \\
+& = 1 - \frac{ 1 }{ 2 } e^{\frac{ \mu - y }{ b }}
+\end{align*}
+
+Putting the pieces together gives,
+
+$$F_Y(y) = \begin{cases}
+ \frac{1}{2} e^{\frac{y-\mu }{b}} & \text{for } y <\mu \\
+1 - \frac{ 1 }{ 2 } e^{\frac{ \mu - y }{ b }} &  \text{for } y \geq\mu.
+\end{cases}$$
+
+\subsubsection{d. \& e.}
+
+The code for parts d. and e. can be found in the \lstinline{Problem_1.R} file. Here are the resulting graphs.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/n_vs_Ln.png}
+	\caption{$L$ as $n$ increases}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/n_vs_Kn.png}
+	\caption{$K$ as $n$ increases}
+\end{figure}
+
+These graphs both demonstrate that our RVs L and K are converging in probability At each sample size n, the same number of samples (50) were taken.  Notice the trend as the number of observations (n) in each sample increases. It is clear that there is far less spread. As n increases, the RVs are converging to the blue line. The observed values of L are geting closer and closer to 50. And the observed values of K are approaching sqrt(50).  As n increases we could continue to shrink our epsilon bubble around the expected value and we will continue to see this convergence.
+
+
+\section{Part II - Convergence in Distribution}
 
 \end{document}
