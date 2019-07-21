@@ -107,12 +107,14 @@ We can confirm this by checking $ E(Y)^2 = Var(Y) + E(Y)^2$. From Wikipedia, we 
 
 $$Var(Y) + E(Y)^2 = 2b^2 + (\mu)^2 = 2b^2 + \mu^2 = E(Y)^2$$
 
+In the case of $\mu =0, \ b = 5$, we get that $L \xrightarrow{\text{p}} 2\cdot 5^2 + 0 = 50$.
+
 \subsubsection{b.}
 Explain what $K = \sqrt{L}$ converges to and why.
 
 \bigskip
 
-By the Continuity Theorem, we can see that $K = \sqrt{L}  \xrightarrow{\text{p}}  \sqrt{2b^2 +\mu^2}$.
+By the Continuity Theorem, we can see that $K = \sqrt{L}  \xrightarrow{\text{p}}  \sqrt{2b^2 +\mu^2}$. In the case of $\mu =0, \ b = 5$, we get that $K \xrightarrow{\text{p}}  \sqrt{50}$.
 
 \subsubsection{c.}
 Derive the CDF of $Y$ . Note you’ll have two cases and you should show your work.
@@ -172,16 +174,20 @@ These graphs both demonstrate that our RVs L and K are converging in probability
 This time we’ll look at the limiting distribution of our statistics.
 
 \subsection{3.}
-Theoretically, since $L$ is an average of \textit{iid} RVs ($Y_i^2$ß are each RVs) with finite variancewe know that, properly standardized, $L$ should have a standard normal limiting distribution by the CLT. 
+Theoretically, since $L$ is an average of \textit{iid} RVs ($Y_i^2$ß are each RVs) with finite variance
+we know that, properly standardized, $L$ should have a standard normal limiting distribution by the CLT. 
 
-Derive the appropriate standardization that will converge to a standard normal distribution for $\mu = 0$ and an arbitrary $b$. Show your work. Note: the kurtosis of theLaplace distribution is 6 and we have $\mu = 0$. Find the formula for kurtosis (book or
+Derive the appropriate standardization that will converge to a standard normal distribution for $\mu = 0$ and an arbitrary $b$. Show your work. Note: the kurtosis of the
+Laplace distribution is 6 and we have $\mu = 0$. Find the formula for kurtosis (book or
 wikipedia) and the calculation of the fourth moment won’t be too bad!
 
 \subsection{4.}
 Redo your above 4 plots using the standardization.
 
 \subsection{5. \& 6.}
- Now let’s see if convergence is occurring for larger values of $n$. Generate data using thesame method as above except do so for $n = 1000$ and $n = 10,000$. Use $N = 10,000$data sets as well.
+ Now let’s see if convergence is occurring for larger values of $n$. Generate data using the
+same method as above except do so for $n = 1000$ and $n = 10,000$. Use $N = 10,000$
+data sets as well.
 
 
 \end{document}
