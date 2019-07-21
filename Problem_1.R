@@ -69,11 +69,13 @@ plotting_function = function(
                       expected_mean,
                       epsilon,
                       title,
-                      y_lab){
+                      y_lab,
+                      ylim){
   
   # Create plot
   plot(sample_sizes, data_matrix[1,], main=title, 
-       xlab="n ", ylab=y_lab, add = TRUE, col = alpha("black", 0.2), pch = 16)
+       xlab="Sample Size, n", ylab=y_lab, 
+       add = TRUE, col = alpha("black", 0.2), pch = 16, ylim=ylim)
   
   # Add additional data points
   for (i in 2:nrow(K_Matrix)){
@@ -86,6 +88,11 @@ plotting_function = function(
   # Add epsilon lines
   abline(h = expected_mean + epsilon, col = "red", lwd = 5, lty = 2)
   abline(h = expected_mean - epsilon, col = "red", lwd = 5, lty = 2)
+  
+  # Add legend
+  # Add legend to top right, outside plot region
+  legend("topright", legend=c("Theoretical Convergence", "Epsilon Bounds"),
+         col=c("blue", "red"), lty=1:2, cex=0.8)
 }
 
 plotting_function(sample_sizes = n,
@@ -93,14 +100,16 @@ plotting_function(sample_sizes = n,
                   expected_mean = sqrt(50),
                   epsilon = 3,
                   title = "Estimates of K as n increases",
-                  y_lab = "K_n")
+                  y_lab = "Estimates of K",
+                  c(0,20))
 
 plotting_function(sample_sizes = n,
                   data_matrix = L_Matrix,
                   expected_mean = 50,
                   epsilon = 20,
                   title = "Estimates of L as n increases",
-                  y_lab = "L_n")
+                  y_lab = "Estimates of L",
+                  c(0,100))
 
 # These graphs both demonstrate that our RVs L and K are converging in probability
 # At each sample size n, the same number of samples (50) were taken. 
