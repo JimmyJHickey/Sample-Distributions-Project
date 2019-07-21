@@ -4,8 +4,6 @@
 # Sampling Distribution of the Laplace Distribution.
 ###
 
-library(ggplot2)
-
 set.seed(1978)
 
 # Problem 1.
@@ -91,7 +89,8 @@ plotting_function = function(
   
   # Add legend
   # Add legend to top right, outside plot region
-  legend("topright", legend=c("Theoretical Convergence", "Epsilon Bounds"),
+  legend("topright", legend=c(sprintf("Theoretical Convergence to %.4f", expected_mean), 
+                              sprintf("Epsilon Bounds with ε = %d", epsilon)),
          col=c("blue", "red"), lty=1:2, cex=0.8)
 }
 
@@ -109,11 +108,11 @@ plotting_function(sample_sizes = n,
                   epsilon = 20,
                   title = "Estimates of L as n increases",
                   y_lab = "Estimates of L",
-                  c(0,100))
+                  c(0,150))
 
 # These graphs both demonstrate that our RVs L and K are converging in probability
 # At each sample size n, the same number of samples (50) were taken. 
-# Notice the trend as the number of observations (n) in each samle increases.
+# Notice the trend as the number of observations (n) in each sample increases.
 # It is clear that there is far less spread.
 # As n increases, the RVs are converging to the blue line.
 # The observed values of L are geting closer and closer to 50.
