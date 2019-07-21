@@ -4,3 +4,10 @@
 .Ruserdata
 *.RProj
 *.DS_Store
+
+# Latex Stuff
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.toc
