@@ -41,4 +41,4 @@ lines(seq(from=-3,to=3,by=0.01),dnorm(seq(from=-3,to=3,by=0.01)))
 
 #Using N=50, while the samples seem to be converging to normal, they still do not appear quite normal even for sample size n=10,000
 #When we change to N=10,000 both n=1,000 and n=10,000 appear normal
-#This shows it is not enough for n>30 the number of sample repititions also plays a role in CLT.
+#This shows it is not enough for n>30 the number of sample repetitions also plays a role in CLT.
