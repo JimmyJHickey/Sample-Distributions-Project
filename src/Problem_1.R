@@ -4,6 +4,9 @@
 # Sampling Distribution of the Laplace Distribution.
 ###
 
+library(scales)
+
+
 set.seed(1978)
 
 # Problem 1.
@@ -119,3 +122,4 @@ plotting_function(sample_sizes = n,
 # And the observed values of K are approaching sqrt(50). 
 # As n increases we could continue to shrink our epsilon bubble around the expected value
 # and we will continue to see this convergence.
+
