@@ -191,12 +191,57 @@ This behavior is most noticeable by plotting the graphs side by side and by putt
 \end{figure}
 
 \subsection{3.}
-Theoretically, since $L$ is an average of \textit{iid} RVs ($Y_i^2$ß are each RVs) with finite variance
+Theoretically, since $L$ is an average of \textit{iid} RVs ($Y_i^2$ are each RVs) with finite variance
 we know that, properly standardized, $L$ should have a standard normal limiting distribution by the CLT. 
 
-Derive the appropriate standardization that will converge to a standard normal distribution for $\mu = 0$ and an arbitrary $b$. Show your work. Note: the kurtosis of the
-Laplace distribution is 6 and we have $\mu = 0$. Find the formula for kurtosis (book or
+Derive the appropriate standardization that will converge to a standard normal distribution for $\mu = 0$ and an arbitrary $b$. Show your work. Note: the kurtosis of the Laplace distribution is 6 and we have $\mu = 0$. Find the formula for kurtosis (book or
 wikipedia) and the calculation of the fourth moment won’t be too bad!
+
+\bigskip
+\noindent
+Recall that $L = \frac{ 1 }{ n } \sum_{i = 1}^{n} Y_i^2$. Let's start by finding $E(L)$.
+
+\begin{align*}
+	E(L) & = E \Big( \frac{ 1 }{ n } \sum_{i = 1}^{n} Y_i^2 \Big) \\
+		& = \frac{ 1 }{ n } \sum_{i = 1}^{n} E(Y_i^2) & \text{since $E$ is a linear operator} \\
+		& =  \frac{ 1 }{ n } \cdot n E(Y_i^2) & \text{by identically distributed RVS} \\
+		& = E(Y_i^2) \\
+		& = 2b^2 + \mu
+\end{align*}
+
+With this, we can calculate the variance.
+
+\begin{align*}
+	Var(L)  & = Var \Big( \frac{ 1 }{ n } \sum_{i = 1}^{n} Y_i^2 \Big) \\
+		& = \frac{ 1 }{ n^2 } \sum_{i = 1}^{n} Var(  Y_i^2)  & \text{by properties of Variance}\\
+		& =  \frac{ 1 }{ n^2 }\cdot  n \cdot Var(  Y_i^2) & \text{by indentically distributed RVs}\\
+		& = \frac{ 1 }{ n }Var(Y_i^2) \\
+		& = \frac{ 1 }{ n } \Big[ E( (Y_i^2)^2) - E(Y_i^2)^2  \Big] & \text{definition of variance} \\
+		& = \frac{ 1 }{ n } \Big[ E( Y_i^4) - E(Y_i^2)^2  \Big] \\
+\end{align*}
+Note that the kurtosis is 6, so we can find  $E(Y_i^4)$.
+\begin{align*}
+	6 & = \dfrac{E(Y_i^4)}{E(E_i^2)^2} & \text{defintion of kurtosis} \\
+	E(Y_i^4) & = 6 \cdot E(E_i^2)^2
+\end{align*}
+
+\begin{align*}
+Var(L) & =  \frac{ 1 }{ n } \Big[ E( Y_i^4) - E(Y_i^2)^2  \Big] \\
+	& =  \frac{ 1 }{ n } \Big[ 6 \cdot E(Y_i^2)^2 - E(Y_i^2)^2  \Big] \\
+	& =  \frac{ 1 }{ n } \Big[ 5 \cdot E(Y_i^2)^2  \Big] \\
+	& = \frac{ 1 }{ n } \Big( 5\cdot (4b^4 - 4b^2\cdot \mu + \mu^2 ) \Big)
+\end{align*}
+
+Given that $\mu = 0$, we get
+
+$$Var(L)  = \frac{ 1 }{ n } 20b^4.$$
+
+With those parameters, 
+
+\begin{align*}
+	\frac{ L }{ n } \dot{\sim} N(2b^2+0, \frac{ 1 }{ n } 20b^4)\\
+	L \dot{\sim} N ( n\cdot 2b^2, n\cdot 20b^4)
+\end{align*}
 
 \subsection{4.}
 Redo your above 4 plots using the standardization.
